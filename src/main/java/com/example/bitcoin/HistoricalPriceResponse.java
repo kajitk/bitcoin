@@ -5,14 +5,14 @@ public class HistoricalPriceResponse {
     private List<DailyPrice> dailyPrices;
     private double highestPrice;
     private double lowestPrice;
-    private double currentPrice;
+   //// private double currentPrice;
     private String currency;
 
-    public HistoricalPriceResponse(List<DailyPrice> dailyPrices, double highestPrice, double lowestPrice, double currentPrice, String currency) {
+    public HistoricalPriceResponse(List<DailyPrice> dailyPrices, double highestPrice, double lowestPrice, String currency) {
         this.dailyPrices = dailyPrices;
         this.highestPrice = highestPrice;
         this.lowestPrice = lowestPrice;
-        this.currentPrice = currentPrice;
+       // this.currentPrice = currentPrice;
         this.currency = currency;
     }
 
@@ -40,13 +40,13 @@ public class HistoricalPriceResponse {
         this.lowestPrice = lowestPrice;
     }
 
-    public double getCurrentPrice() {
-        return currentPrice;
-    }
-
-    public void setCurrentPrice(double currentPrice) {
-        this.currentPrice = currentPrice;
-    }
+//    public double getCurrentPrice() {
+//        return currentPrice;
+//    }
+//
+//    public void setCurrentPrice(double currentPrice) {
+//        this.currentPrice = currentPrice;
+//    }
 
     public String getCurrency() {
         return currency;

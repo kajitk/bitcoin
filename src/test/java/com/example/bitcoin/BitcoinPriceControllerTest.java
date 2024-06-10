@@ -39,7 +39,6 @@ public class BitcoinPriceControllerTest {
                         ),
                         48000.0,
                         47000.0,
-                        47000.0,
                         "USD"
                 ));
 
@@ -60,7 +59,6 @@ public class BitcoinPriceControllerTest {
                                         new DailyPrice("02-01-2023", 47000.0)
                                 ),
                                 48000.0,
-                                47000.0,
                                 47000.0,
                                 "USD"
                         )

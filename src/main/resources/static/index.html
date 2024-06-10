@@ -37,7 +37,15 @@
     <input type="text" id="endDate" name="endDate" required>
     <br>
     <label for="currency">Output Currency:</label>
-    <input type="text" id="currency" name="currency" required>
+
+    <select name="currencies" id="currency">
+        <option value="USD" selected>USD</option>
+        <option value="INR">INR</option>
+        <option value="EUR">EUR</option>
+        <option value="CAD">CAD</option>
+        <option value="JPY">JPY</option>
+        <option value="CNY">CNY</option>
+    </select>
     <br><br>
     <button type="submit">Get Prices</button>
 </form>
