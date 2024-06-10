@@ -37,7 +37,7 @@ public class BitcoinPriceController {
     private List<DailyPrice> fetchHistoricalPrices(String startDate, String endDate) throws ParseException {
        // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        SimpleDateFormat outputSdf = new SimpleDateFormat("dd-MM-yyyy");
+       // SimpleDateFormat outputSdf = new SimpleDateFormat("dd-MM-yyyy");
         List<DailyPrice> prices = new ArrayList<>();
         Date start = sdf.parse(startDate);
         Date end = sdf.parse(endDate);
@@ -45,8 +45,8 @@ public class BitcoinPriceController {
         calendar.setTime(start);
 
         while (!calendar.getTime().after(end)) {
-            String formattedDate = outputSdf.format(calendar.getTime());
-            prices.add(new DailyPrice(formattedDate, 50000.0 + (Math.random() * 10000 - 5000))); // Random prices for demo
+            String formattedDate = sdf.format(calendar.getTime());
+            prices.add(new DailyPrice(formattedDate, 50000.0 + (Math.random() * 10000 - 5000))); // Random prices
             calendar.add(Calendar.DATE, 1);
         }
         return prices;
