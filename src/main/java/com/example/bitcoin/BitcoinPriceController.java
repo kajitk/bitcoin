@@ -5,10 +5,14 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/bitcoin")
 public class BitcoinPriceController {
+    private static final Logger logger = LoggerFactory.getLogger(BitcoinPriceController.class);
 
     private boolean offlineMode = false;
 
@@ -21,17 +25,23 @@ public class BitcoinPriceController {
             @Parameter(description = "Output currency (e.g., USD, EUR)")
             @RequestParam String outputCurrency) {
 
+        HistoricalPriceResponse response;
+        logger.info("Received request for historical prices from {} to {} with output currency {}", startDate, endDate, outputCurrency);
+
         try {
             List<DailyPrice> dailyPrices = offlineMode ? fetchOfflinePrices(outputCurrency) : fetchHistoricalPrices(startDate, endDate, outputCurrency);
             double highestPrice = findHighestPrice(dailyPrices);
             double lowestPrice = findLowestPrice(dailyPrices);
-          //  double currentPrice = fetchCurrentPrice(outputCurrency);
+            logger.info("Highest price: {}, Lowest price: {}", highestPrice, lowestPrice);
 
-            return new HistoricalPriceResponse(dailyPrices, highestPrice, lowestPrice, outputCurrency);
-
+           // return new HistoricalPriceResponse(dailyPrices, highestPrice, lowestPrice, outputCurrency);
+            response = new HistoricalPriceResponse(dailyPrices, highestPrice, lowestPrice, outputCurrency);
+            logger.info("Returning response: {}", response);
         } catch (Exception e) {
             throw new RuntimeException("Error fetching historical prices", e);
         }
+        return response;
+
     }
 
     private List<DailyPrice> fetchHistoricalPrices(String startDate, String endDate, String currency) throws ParseException {
@@ -78,7 +88,7 @@ public class BitcoinPriceController {
     }
     private double fetchCurrencyPrice(String currency,double price) {
         double convertedPrice;
-        Map<String,Double> rates= new HashMap<String, Double>();
+        Map<String,Double> rates= new HashMap<>();
 
         rates.put("INR",82.743);
         rates.put("EUR",0.943);
@@ -97,5 +107,7 @@ public class BitcoinPriceController {
     @PostMapping("/toggle-offline")
     public void toggleOfflineMode(@RequestParam boolean offline) {
         this.offlineMode = offline;
+        logger.info("Offline mode set to {}", offline);
+
     }
 }
