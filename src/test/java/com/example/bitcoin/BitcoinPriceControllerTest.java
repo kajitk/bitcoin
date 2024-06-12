@@ -42,7 +42,6 @@ public class BitcoinPriceControllerTest {
                         "USD"
                 ));
 
-       // when(bitcoinPriceController.toggleOfflineMode(anyBoolean())).thenReturn(null);
     }
 
     @Test

@@ -32,8 +32,6 @@ public class BitcoinPriceController {
             double highestPrice = findHighestPrice(dailyPrices);
             double lowestPrice = findLowestPrice(dailyPrices);
             logger.info("Highest price: {}, Lowest price: {}", highestPrice, lowestPrice);
-
-           // return new HistoricalPriceResponse(dailyPrices, highestPrice, lowestPrice, outputCurrency);
             response = new HistoricalPriceResponse(dailyPrices, highestPrice, lowestPrice, outputCurrency);
             logger.info("Returning response: {}", response);
         } catch (Exception e) {
@@ -54,7 +52,6 @@ public class BitcoinPriceController {
         while (!calendar.getTime().after(end)) {
             String formattedDate = sdf.format(calendar.getTime());
             double price =50000.0 + (Math.random() * 10000 - 5000);
-            //convertedPrice=fetchCurrencyPrice(currency,price);
             prices.add(new DailyPrice(formattedDate, fetchCurrencyPrice(currency,price))); // Random prices
             calendar.add(Calendar.DATE, 1);
         }
@@ -81,10 +78,6 @@ public class BitcoinPriceController {
         return prices.stream().mapToDouble(DailyPrice::getPrice).min().orElse(0.0);
     }
 
-    private double fetchCurrentPrice(String currency) {
-
-        return 47000.0;
-    }
     private double fetchCurrencyPrice(String currency,double price) {
         double convertedPrice;
         Map<String,Double> rates= new HashMap<>();
