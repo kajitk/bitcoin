@@ -17,7 +17,8 @@ pipeline {
             steps {
                 script {
                     // Clean and build the Maven project
-                    sh 'mvn clean package'
+                     def mvnHome = tool name: 'Maven', type: 'maven'
+                     sh "${mvnHome}/bin/mvn clean package"
                 }
             }
         }
@@ -26,7 +27,8 @@ pipeline {
             steps {
                 script {
                     // Run unit tests
-                    sh 'mvn test'
+                    def mvnHome = tool name: 'Maven', type: 'maven'
+                    sh "${mvnHome}/bin/mvn test"
                 }
             }
         }
